@@ -1,6 +1,6 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
-const SVGComponent = (props) => (
+const HorizontalDiamond = (props) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     width={75}
@@ -16,4 +16,4 @@ const SVGComponent = (props) => (
     />
   </Svg>
 );
-export default SVGComponent;
+export default HorizontalDiamond;
