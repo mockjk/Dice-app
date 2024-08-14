@@ -1,22 +1,23 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
-import Circle from "../components/DiceFace/Circle";
-import Diamond from './DiceFace/Diamond';
-import Hexagon from './DiceFace/Hexagon';
-import HorizontalDiamond from './DiceFace/HorizontalDiamond';
-import Pentagon from './DiceFace/Pentagon';
-import Square from './DiceFace/Square';
-import Triangle from './DiceFace/Triangle';
+import Circle from "../assets/Circle";
+import Diamond from '../assets/Diamond';
+import Hexagon from '../assets/Hexagon';
+import HorizontalDiamond from '../assets/HorizontalDiamond';
+import Pentagon from '../assets/Pentagon';
+import Square from '../assets/Square';
+import Triangle from '../assets/Triangle';
 
 
 interface Props {
     diceNumber: number;
     diceFace: string;
+    action: any;
 }
 
 export default function DiceButton(props: Props){
     return (
-        <Pressable style={styles.pressable}>
+        <Pressable style={styles.pressable} onPress={props.action}>
             <Text style={styles.text} children={`D${props.diceNumber}`}/>
             {(() => {
        switch (props.diceFace) {
