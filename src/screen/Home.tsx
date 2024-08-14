@@ -8,11 +8,31 @@ import Minus from '../assets/Minus';
 import Plus from '../assets/Plus';
 import { useState } from 'react';
 import History from "../assets/History";
+import Triangle from '../assets/Triangle';
+import Circle from '../assets/Circle';
+import Square from '../assets/Square';
+import Diamond from '../assets/Diamond';
+import HorizontalDiamond from '../assets/HorizontalDiamond';
+import Pentagon from '../assets/Pentagon';
+import Hexagon from '../assets/Hexagon';
+import getDiceNumber from '../functions/getDiceNumber';
 
 //@ts-ignore
 export default function Home({ navigation }) {
 
-  const [diceValue, setdiceValue] = useState(Number)
+  interface Result {
+    numbers: number[];
+    sum: number;
+  }
+
+  const [diceValue, setDiceValue] = useState(Number)
+  const [diceAmount, setDiceAmount] = useState(1)
+  const [result, setResult] = useState<Result>({numbers: [], sum: 0})
+  
+  function roll(diceValue: number, amount: number){
+    setResult(getDiceNumber(diceValue, amount))
+    return
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -27,20 +47,51 @@ export default function Home({ navigation }) {
           ) : 
           (
             <View>
-              {/* Passar props width para o svg para reutilizar os icons no dice value */}
-              <Text style={styles.selectedDice}>{diceValue}</Text>
-              <View style={styles.controlsResult}>
-                <Pressable children={<Minus/>}/>
-                <Text children="100" style={{fontSize: 58, fontWeight: "bold"}}/> 
-                {/* RESULT */}
-                <Pressable children={<Plus/>}/>
+
+              <View style={styles.diceAmount}>
+              {(() => {
+                  switch (diceValue) {
+                    case 2: 
+                        return <Circle width="25px" fill="#787878"/>;
+                        
+                    case 4: 
+                        return <Triangle width="25px" fill="#787878"/>;
+                        
+                    case 6: 
+                        return <Square width="25px" fill="#787878"/>;
+                        
+                    case 8:
+                        return <Diamond width="25px" fill="#787878"/>;
+                        
+                    case 10: 
+                        return <HorizontalDiamond width="25px" fill="#787878"/>;
+                        
+                    case 12: 
+                        return <Pentagon width="25px" fill="#787878"/>;
+                        
+                    case 20: 
+                        return <Hexagon width="25px" fill="#787878"/>;
+                    
+                    case 100: 
+                      return <HorizontalDiamond width="25px" fill="#787878"/>;
+                  }
+                  })()}
+                <Text style={{fontSize: 24, color: "#787878", marginBottom: 4, fontWeight: "bold"}} children={diceAmount}/>
               </View>
+              
+              <View style={styles.controlsResult}>
+                <Pressable children={<Minus/>} onPress={() => setDiceAmount( diceAmount -1 )} disabled={diceAmount === 1}/>
+                <Text children={result.sum} style={{fontSize: 58, fontWeight: "bold"}}/>
+                {/* RESULT */}
+                <Pressable children={<Plus/>} onPress={() => setDiceAmount( diceAmount + 1)}/>
+              </View>
+              {diceAmount > 1 && <Text children={result.numbers.toString()} style={{alignSelf: "center", color: "#787878", fontSize: 18}}/> } 
             </View>
           )}
           
         </View>
       </View>
-      <Pressable style={styles.rollButton} children={<RealoadSvg/>}/>
+      <Pressable style={styles.rollButton} children={<RealoadSvg/>} onPress={() => roll(diceValue, diceAmount)}/>
       <View style={styles.footer}>
         <View style={styles.groupButtons}>
           {[
@@ -49,7 +100,7 @@ export default function Home({ navigation }) {
             { number: 6, diceFormat: "Square" },
             { number: 8, diceFormat: "Diamond" }
           ].map((num) => (
-            <DiceButton key={num.number} diceNumber={num.number} diceFace={num.diceFormat} action={setdiceValue}/>
+            <DiceButton key={num.number} diceNumber={num.number} diceFace={num.diceFormat} action={setDiceValue}/>
           ))}
         </View>
         <View style={styles.groupButtons}>
@@ -58,7 +109,7 @@ export default function Home({ navigation }) {
           { number: 12, diceFormat: "Pentagon" },
           { number: 20, diceFormat: "Hexagon" },
           { number: 100, diceFormat: "HorizontalDiamond" }].map((num) => (
-            <DiceButton diceNumber={num.number} key={num.number} diceFace={num.diceFormat} action={() => setdiceValue(num.number)}/>
+            <DiceButton diceNumber={num.number} key={num.number} diceFace={num.diceFormat} action={setDiceValue}/>
           ))}
         </View>
       </View>
@@ -83,12 +134,15 @@ const styles = StyleSheet.create({
   },
   resultScreen: {
     width: width,
-    marginBottom: height*0.065
+    marginBottom: height*0.065,
   },
-  selectedDice: {
-    fontSize: 24, 
-    alignSelf: "center", 
-    marginBottom: -height*0.02,
+  diceAmount: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    justifyContent: "center",
+    height: height*0.03,
+    marginBottom: -height*0.015,
   },
   controlsResult:{
     width: width,
@@ -98,22 +152,22 @@ const styles = StyleSheet.create({
 
   },
   rollButton:{
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 60,
     borderRadius: 50,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#ffffff",
     position: "absolute",
     bottom: height*0.262,
     zIndex: 1,
     alignSelf: "center",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   footer:{
     height: height*0.3,
     width: width,
     justifyContent: "center",
-    gap: 25,
+    gap: 8,
     backgroundColor: "#F6F6F6",
   },
   groupButtons: {
