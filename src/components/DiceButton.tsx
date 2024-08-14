@@ -7,6 +7,7 @@ import HorizontalDiamond from '../assets/HorizontalDiamond';
 import Pentagon from '../assets/Pentagon';
 import Square from '../assets/Square';
 import Triangle from '../assets/Triangle';
+import { height } from '../constants/measures';
 
 
 interface Props {

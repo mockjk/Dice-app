@@ -2,9 +2,9 @@ import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 const Triangle = (props) => (
   <Svg
-    fill="#000000"
-    width="75px"
-    height="100px"
+    fill={props.fill || "#000"}
+    width={props.width || "75px"}  
+    height={props.height || "100px"}
     viewBox="1 1 22 23"
     xmlns="http://www.w3.org/2000/svg"
     enableBackground="new 0 0 24 24"

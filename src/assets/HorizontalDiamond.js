@@ -3,10 +3,11 @@ import Svg, { Path } from "react-native-svg";
 const HorizontalDiamond = (props) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
-    width={75}
-    height={100}
+    width={props.width || "75px"}  
+    height={props.height || "100px"}
     viewBox="0 0 6.5 6.5"
     xmlSpace="preserve"
+    fill={props.fill || "#000"}
     {...props}
   >
     <Path
