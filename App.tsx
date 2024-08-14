@@ -6,14 +6,10 @@ import { height, width } from './src/constants/measures';
 import RealoadSvg from './src/assets/RollButton';
 import Minus from './src/assets/Minus';
 import Plus from './src/assets/Plus';
-import { useEffect, useState } from 'react';
-import getDiceNumber from './src/functions/getDiceNumber';
+import { useState } from 'react';
 
 export default function App() {
 
-  useEffect(() => {
-    getDiceNumber(20);
-  })
   const [diceValue, setdiceValue] = useState(Number)
 
   return (
