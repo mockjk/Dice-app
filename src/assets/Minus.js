@@ -3,8 +3,8 @@ import Svg, { Line } from "react-native-svg";
 const Minus = (props) => (
   <Svg
     fill="#000000"
-    width="75px"
-    height="100px"
+    width="40px"
+    height="40px"
     viewBox="0 0 24 24"
     id="minus"
     data-name="Flat Line"
@@ -20,10 +20,10 @@ const Minus = (props) => (
       y2={12}
       style={{
         fill: "none",
-        stroke: "rgb(0, 0, 0)",
+        stroke: "#787878",
         strokeLinecap: "round",
         strokeLinejoin: "round",
-        strokeWidth: 0.5,
+        strokeWidth: 0.75,
       }}
     />
   </Svg>
