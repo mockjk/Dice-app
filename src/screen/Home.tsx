@@ -9,7 +9,8 @@ import Plus from '../assets/Plus';
 import { useState } from 'react';
 import History from "../assets/History";
 
-export default function Home({navigation}) {
+//@ts-ignore
+export default function Home({ navigation }) {
 
   const [diceValue, setdiceValue] = useState(Number)
 
