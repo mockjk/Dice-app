@@ -12,12 +12,12 @@ import Triangle from '../assets/Triangle';
 interface Props {
     diceNumber: number;
     diceFace: string;
-    action: any;
+    action: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function DiceButton(props: Props){
     return (
-        <Pressable style={styles.pressable} onPress={props.action}>
+        <Pressable style={styles.pressable} onPress={() => props.action(props.diceNumber)}>
             <Text style={styles.text} children={`D${props.diceNumber}`}/>
             {(() => {
        switch (props.diceFace) {

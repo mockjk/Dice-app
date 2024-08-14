@@ -6,10 +6,14 @@ import { height, width } from './src/constants/measures';
 import RealoadSvg from './src/assets/RollButton';
 import Minus from './src/assets/Minus';
 import Plus from './src/assets/Plus';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import getDiceNumber from './src/functions/getDiceNumber';
 
 export default function App() {
 
+  useEffect(() => {
+    getDiceNumber(20);
+  })
   const [diceValue, setdiceValue] = useState(Number)
 
   return (
@@ -44,7 +48,7 @@ export default function App() {
             { number: 6, diceFormat: "Square" },
             { number: 8, diceFormat: "Diamond" }
           ].map((num) => (
-            <DiceButton key={num.number} diceNumber={num.number} diceFace={num.diceFormat} action={() => setdiceValue(num.number)}/>
+            <DiceButton key={num.number} diceNumber={num.number} diceFace={num.diceFormat} action={setdiceValue}/>
           ))}
         </View>
         <View style={styles.groupButtons}>
