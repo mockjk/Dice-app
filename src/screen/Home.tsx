@@ -23,6 +23,7 @@ export default function Home({ navigation }) {
   interface Result {
     numbers: number[];
     sum: number;
+    dice?: string;
   }
 
   const [history, setHistory] = useState<Result[]>([])
@@ -40,23 +41,24 @@ export default function Home({ navigation }) {
     {id: 8, number: 100, diceFormat: "HorizontalDiamond", counter: 0 }
   ])
 
-
-  
-  
-
   const counter = (id : number) => {
     setDiceGroup((prevData) => prevData.map((item) => item.id === id ? {...item, counter: item.counter + 1} : {...item, counter: 0}))
   }
 
   const roll = (diceValue: number, amount: number) =>{
     const result = getDiceNumber(diceValue, amount)
+    const resultWithDice : Result = ({
+      numbers: result.numbers,
+      sum: result.sum,
+      dice: `D${diceValue}`
+    })
     setResult(result)
-    setHistory((prevHistory) => [result, ...prevHistory])
+    setHistory((prevHistory) => [resultWithDice, ...prevHistory] )
   }
 
-  const buttonAction = (number: number, value: number, amount: number, id: number) => {
+  const buttonAction = (number: number, amount: number, id: number) => {
     setDiceValue(number); 
-    roll(value, amount); 
+    roll(number, amount); 
     counter(id);
   }
 
@@ -108,7 +110,7 @@ export default function Home({ navigation }) {
                       return <HorizontalDiamond width="25px" fill="#787878"/>;
                   }
                   })()}
-                <Text style={{fontSize: 24, color: "#787878", marginBottom: 10, fontWeight: "bold"}} children={diceAmount}/>
+                <Text style={{fontSize: 24, color: "#787878", fontWeight: "bold", marginTop: -3}} children={diceAmount}/>
               </View>
               
               <View style={styles.controlsResult}>
@@ -127,12 +129,12 @@ export default function Home({ navigation }) {
       <View style={styles.footer}>
         <View style={styles.groupButtons}>
           {diceGroup.slice(0,4).map((dice) => (
-            <DiceButton key={dice.number} counter={dice.counter.toString()} diceNumber={dice.number} diceFace={dice.diceFormat} action={() => buttonAction(dice.number, diceValue, diceAmount, dice.id)}/>
+            <DiceButton key={dice.number} counter={dice.counter.toString()} diceNumber={dice.number} diceFace={dice.diceFormat} action={() => buttonAction(dice.number, diceAmount, dice.id)}/>
           ))}
         </View>
         <View style={styles.groupButtons}>
         {diceGroup.slice(4, 8).map((dice) => (
-            <DiceButton key={dice.number} counter={dice.counter.toString()} diceNumber={dice.number} diceFace={dice.diceFormat} action={() => buttonAction(dice.number, diceValue, diceAmount, dice.id)}/>
+            <DiceButton key={dice.number} counter={dice.counter.toString()} diceNumber={dice.number} diceFace={dice.diceFormat} action={() => buttonAction(dice.number, diceAmount, dice.id)}/>
           ))}
         </View>
       </View>
@@ -198,7 +200,4 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
-function async(arg0: undefined) {
-  throw new Error('Function not implemented.');
-}
 

@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 type HistoricoItem = {
     numbers: number;
     sum: number;
+    dice: string;
   };
 
 type HistoricoScreenRouteProp = RouteProp<{ History: { history: HistoricoItem[] } }, 'History'>;
@@ -18,6 +19,7 @@ export default function History() {
     <View style={styles.itemContainer}>
       <Text style={styles.text}>Números sorteados: {item.numbers}</Text>
       <Text style={styles.text}>Soma: {item.sum}</Text>
+      <Text style={styles.text}>Dado: {item.dice}</Text>
     </View>
   );
 
