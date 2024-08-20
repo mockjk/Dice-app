@@ -1,47 +1,118 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
-import Circle from "../assets/Circle";
-import Diamond from '../assets/Diamond';
-import Hexagon from '../assets/Hexagon';
-import HorizontalDiamond from '../assets/HorizontalDiamond';
-import Pentagon from '../assets/Pentagon';
-import Square from '../assets/Square';
-import Triangle from '../assets/Triangle';
-import { height } from '../constants/measures';
-
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import Circle from "./Svg/Circle";
+import Diamond from './Svg/Diamond';
+import Hexagon from './Svg/Hexagon';
+import HorizontalDiamond from './Svg/HorizontalDiamond';
+import Pentagon from './Svg/Pentagon';
+import Square from './Svg/Square';
+import Triangle from './Svg/Triangle';
 
 interface Props {
     diceNumber: number;
     diceFace: string;
     action: React.Dispatch<React.SetStateAction<number>>;
+    counter: string;
 }
 
 export default function DiceButton(props: Props){
     return (
-        <Pressable style={styles.pressable} onPress={() => props.action(props.diceNumber)}>
+        //@ts-ignore
+        <Pressable style={styles.pressable} onPress={props.action}>
             <Text style={styles.text} children={`D${props.diceNumber}`}/>
+            
             {(() => {
        switch (props.diceFace) {
         case "Circle": 
-            return <Circle />;
+            return(
+                <View>
+                    {props.counter !== "0" && 
+                        <View style={styles.count}>
+                            <Text style={{color: "white"}} children={props.counter}/>
+                        </View>
+                    }
+                    <Circle />
+                </View>
+                
+            ) ;
             
         case "Diamond": 
-            return <Diamond />;
+        return(
+            <View>
+                {props.counter !== "0" && 
+                    <View style={styles.count}>
+                        <Text style={{color: "white"}} children={props.counter}/>
+                    </View>
+                }
+                <Diamond />
+            </View>
+            
+        ) ;
             
         case "Hexagon": 
-            return <Hexagon />;
+        return(
+            <View>
+                {props.counter !== "0" && 
+                    <View style={styles.count}>
+                        <Text style={{color: "white"}} children={props.counter}/>
+                    </View>
+                }
+                <Hexagon />
+            </View>
+            
+        ) ;
             
         case "HorizontalDiamond":
-            return <HorizontalDiamond />;
+            return(
+                <View>
+                    {props.counter !== "0" && 
+                        <View style={styles.count}>
+                            <Text style={{color: "white"}} children={props.counter}/>
+                        </View>
+                    }
+                    <HorizontalDiamond />
+                </View>
+                
+            ) ;
             
         case "Pentagon": 
-            return <Pentagon />;
+        return(
+            <View>
+                {props.counter !== "0" && 
+                    <View style={styles.count}>
+                        <Text style={{color: "white"}} children={props.counter}/>
+                    </View>
+                }
+                <Pentagon />
+            </View>
+            
+        ) ;
             
         case "Square": 
-            return <Square />;
+        return(
+            <View>
+                {props.counter !== "0" && 
+                    <View style={styles.count}>
+                        <Text style={{color: "white"}} children={props.counter}/>
+                    </View>
+                }
+                <Square />
+            </View>
+            
+        ) ;;
             
         case "Triangle": 
-            return <Triangle />;
+        return(
+            <View>
+                {props.counter !== "0" && 
+                    <View style={styles.count}>
+                        <Text style={{color: "white"}} children={props.counter}/>
+                    </View>
+                }
+                <Triangle />
+            </View>
+            
+        ) ;
             
     }
       })()}
@@ -58,5 +129,19 @@ const styles = StyleSheet.create({
         position: "absolute",
         color: "#FFFFFF",
         zIndex: 1,
-    }
+    },
+    count:{
+        width: 22,
+        height: 30,
+        borderWidth: 2,
+        borderColor: "white",
+        backgroundColor: "#969696",
+        borderRadius: 5,
+        position: "absolute",
+        zIndex: 2,
+        top: 0,
+        right: 10,
+        alignItems: "center",
+        justifyContent: "center",
+    },
 });
